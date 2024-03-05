@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Header-->
+<div th:replace="admin/header :: header"></div>
+<body>
+<!--Navbar Start-->
+<div th:replace="admin/header :: navbar"></div>
+<!--Navbar End-->
+<br/><br/>
+<div class="container">
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Edit Post</h2>
+            </div>
+            <div class="card-body">
+                <form role="form" method="post" th:action="@{/admin/posts/{postId}(postId = ${post.id})}" th:object="${post}">
+                    <input type="hidden" th:field="*{url}">
+                    <input type="hidden" th:field="*{createdOn}">
+                    <!--Title-->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="title"
+                                name="title"
+                                placeholder="Enter Title"
+                                th:field="*{title}"
+                        >
+                        <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
+                    </div>
+                    <!--Short Description-->
+                    <div class="mb-3">
+                        <label for="shortDescription" class="form-label">Short Description</label>
+                        <textarea
+                                class="form-control"
+                                id="shortDescription"
+                                name="shortDescription"
+                                rows="3"
+                                placeholder="Enter post short desciption"
+                                th:field="*{shortDescription}"
+                        >
+                            </textarea>
+                        <p th:if="${#fields.hasErrors('shortDescription')}" class="text-danger" th:errors="*{shortDescription}"></p>
+                    </div>
+                    <!--Content-->
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label>
+                        <textarea
+                                class="form-control"
+                                id="content"
+                                name="content"
+                                rows="12"
+                                placeholder="Enter post content"
+                                th:field="*{content}"
+                        >
+                            </textarea>
+                        <p th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></p>
+                    </div>
+                    <button type="submit" class="btn btn-lg" style="background-color: #734AF6;color: #ffffff;width: 20%">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/><br/><br/><br/><br/>
+
+<!--Footer Start-->
+<div th:replace="admin/footer :: footer"></div>
+<!--Footer End-->
+<!--J Query CDN-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+</body>
+</html>

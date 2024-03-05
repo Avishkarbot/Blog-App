@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Header-->
+<div th:replace="blog/header :: header"></div>
+<body>
+    <!--Navbar Start-->
+    <div th:replace="blog/header :: navbar"></div>
+    <!--Navbar End-->
+    <br/><br/><br/><br/>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-7">
+                <div th:each="post : ${postsResponse}">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #b9a4fa; color: #000">
+                            <h3>
+                                <a th:href="@{/post/{postUrl}(postUrl=${post.url})}" th:text="${post.title}" style="color: #000"></a>
+                            </h3>
+                            <div>
+                                <strong th:text="${#temporals.format(post.createdOn,'dd MMMM yyyy')}">
+
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span th:text="${post.shortDescription}"></span>
+                            <a th:href="@{/post/{postUrl}(postUrl=${post.url})}">Read More</a>
+                        </div>
+
+                    </div>
+                    <br/><br/>
+                </div>
+            </div>
+            <div class="col-md-5" style="position: fixed; right: 0">
+                <!--Search Bar-->
+                <div th:replace="blog/search :: search"></div>
+            </div>
+        </div>
+    </div>
+    <br/><br/><br/><br/>
+    <!--Footer Start-->
+    <div th:replace="blog/footer :: footer"></div>
+    <!--Footer End-->
+</body>
+</html>

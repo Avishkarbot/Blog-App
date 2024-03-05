@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Header-->
+<div th:replace="blog/header :: header"></div>
+<body>
+<!--Navbar Start-->
+<div th:replace="blog/header :: navbar"></div>
+<!--Navbar End-->
+<br/><br/><br/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+                <h2 th:text="${post.title}"></h2>
+                <hr>
+                <h4 th:text="${post.shortDescription}"></h4>
+                <hr>
+                <div th:text="${post.content}"></div>
+                <br/><br/>
+            <!--Comment Section Start-->
+            <div>
+                <h3 style="background-color: #b9a4fa" class="p-2">Comments :</h3>
+                <div th:each="comment : ${post.comments}">
+                    <div>
+                        <p><b>Name: </b><strong th:text="${comment.name}"></strong></p>
+                        <p><b>Date: </b><strong th:text="${#temporals.format(comment.createdOn,'dd MMM yyyy')}"></strong></p>
+                        <p th:text="${comment.content}"></p>
+                        <br/>
+                    </div>
+                </div>
+                <hr>
+                <br/><br/>
+                <div class="card">
+                    <div class="card-header" style="background-color: #b9a4fa">
+                        <h2>Leave a reply</h2>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" method="post" th:action="@{/{postUrl}/comments(postUrl=${post.url})}" th:object="${comment}">
+                            <!--Comment Name-->
+                            <div class="row">
+                                <div class="mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="name"
+                                            name="name"
+                                            placeholder="Enter name"
+                                            th:field="*{name}"
+                                    >
+                                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                                </div>
+                            </div>
+                            <!--Comment Email-->
+                            <div class="row">
+                                <div class="mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="email"
+                                            name="email"
+                                            placeholder="Enter email"
+                                            th:field="*{email}"
+                                    >
+                                    <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                                </div>
+                            </div>
+                            <!--Comment Content-->
+                            <div class="row">
+                                <div class="mb-3">
+                               <textarea class="form-control" id="content" name="content" placeholder="Enter comment" rows="8" th:field="*{content}">
+
+                               </textarea>
+                                    <p th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <button class="btn btn-lg" style="background-color: #734AF6; color: white" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--Comment Section End-->
+            <br/><br/><br/><br/>
+        </div>
+        <div class="col-md-5" style="position: fixed; right: 0">
+            <!--Search Bar-->
+            <div th:replace="blog/search :: search"></div>
+        </div>
+    </div>
+</div>
+
+<!--Footer Start-->
+<footer class="footer-copyright text-center py-3" style="background-color: #734AF6;position: sticky; height: 50px; width: 100%; bottom: 0; color: #fff" th:fragment="footer">
+    <div>
+        <strong>
+            Copyright &copy; 2024 <a href="https://github.com/Avishkarbot" style="color: white">Avishkar Yelave</a> All rights reserved.
+        </strong>
+    </div>
+</footer>
+<!--Footer End-->
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Header-->
+<div th:replace="admin/header :: header"></div>
+<body>
+    <!--Navbar Start-->
+    <div th:replace="admin/header :: navbar"></div>
+    <!--Navbar End-->
+    <br/><br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 th:text="${post.title}"></h2>
+                <hr>
+                <h4 th:text="${post.shortDescription}"></h4>
+                <hr>
+                <div th:text="${post.content}">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Footer Start-->
+    <footer class="footer-copyright text-center py-3" style="background-color: #734AF6;position: fixed; height: 50px; width: 100%; bottom: 0; color: #fff" th:fragment="footer">
+        <div>
+            <strong>
+                Copyright &copy; 2024 <a href="https://github.com/Avishkarbot" style="color: white">Avishkar Yelave</a> All rights reserved.
+            </strong>
+        </div>
+    </footer>
+    <!--Footer End-->
+</body>
+</html>

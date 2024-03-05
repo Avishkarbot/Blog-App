@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Header-->
+<div th:replace="admin/header :: header"></div>
+<body>
+    <!--Navbar Start-->
+    <div th:replace="admin/header :: navbar"></div>
+    <!--Navbar End-->
+    <br/><br/><br/><br/>
+    <div class="container">
+        <div class="row p-3" style="background-color: #b9a4fa">
+            <h1>List Of Comments</h1>
+        </div>
+        <br/>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <th class="text-center" style="width: 10%">Sr.no</th>
+                <th class="text-center" style="width: 20%">Email</th>
+                <th class="text-center" style="width: 30%">Content</th>
+                <th class="text-center" style="width: 20%">Created On</th>
+                <th class="text-center" style="width: 20%">Actions</th>
+            </thead>
+            <tbody>
+                <tr th:each="comment , commentStat: ${comments}">
+                    <td class="text-center" th:text="${commentStat.count}"></td>
+                    <td class="text-center" th:text="${comment.email}"></td>
+                    <td class="text-center" th:text="${comment.content}"></td>
+                    <td class="text-center" th:text="${#temporals.format(comment.createdOn,'dd MMM yyyy')}"></td>
+                    <td class="text-center">
+                        <a th:href="@{/admin/posts/comments/{commentId}(commentId=${comment.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
